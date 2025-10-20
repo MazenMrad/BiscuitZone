@@ -1,0 +1,8 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+assets/map/props/jump pad.png.import
+assets/enemy/enemy_run.png.import
+assets/enemy/enemy_attack.png.import
+assets/enemy/enemy.png.import
+assets/drone/drone.png.import

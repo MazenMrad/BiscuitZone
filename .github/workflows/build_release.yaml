@@ -1,0 +1,87 @@
+name: Release build
+run-name: Building release version
+on: 
+  workflow_dispatch:
+    inputs:
+      job_target:
+        description: Select the platform
+        required: true
+        default: linux
+        type: choice
+        options:
+          - web
+
+permissions:
+  contents: write
+
+env:
+  GODOT_VERSION: 4.4
+  GODOT_PROJECT_LOCATION: project.godot
+  EXPORT_FOLDER_LINUX: bin/Linux
+  EXPORT_FOLDER_WINDOWS: bin/Windows
+  EXPORT_FOLDER_WEB: bin/Web
+  APPLICATION_NAME: "Maxivokasa"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: archlinux:latest
+    steps:
+      - name: Setting extra variables
+        run: |
+          echo "DATE=$(date +'%Y-%m-%d')" >> $GITHUB_ENV
+          echo "MAIN_FOLDER=$(pwd)" >> $GITHUB_ENV
+
+      - name: Installing dependencies
+        run: pacman -Syu --noconfirm git bash yasm python python-pip scons gcc diffutils make wget unzip tar mingw-w64 fontconfig
+
+      - name: Checkout submodules
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - name: Prepare Godot
+        run: |
+          wget -q -O godot_linux.zip https://github.com/godotengine/godot-builds/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64.zip
+          unzip godot_linux.zip
+          wget -q -O godot_export_templates.tpz https://github.com/godotengine/godot-builds/releases/download/${{ env.GODOT_VERSION }}-stable/Godot_v${{ env.GODOT_VERSION }}-stable_export_templates.tpz
+          mkdir -p ~/.local/share/godot/export_templates/${{ env.GODOT_VERSION }}.stable
+          unzip godot_export_templates.tpz -d ~/.local/share/godot/export_templates/${{ env.GODOT_VERSION }}.stable
+          mv ~/.local/share/godot/export_templates/${{ env.GODOT_VERSION }}.stable/templates/* ~/.local/share/godot/export_templates/${{ env.GODOT_VERSION }}.stable/
+          sed -i 's/config\/version="[^"]*"/config\/version="${{ env.DATE }}-release"/' ${{ env.GODOT_PROJECT_LOCATION }}
+
+
+      - name: Reimport resources (Web)
+        if: ${{ github.event.inputs.job_target == 'web' || github.event.inputs.job_target == 'both' }}
+        run: |
+          ./Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 --headless --editor --quit --path $(dirname ${{ env.GODOT_PROJECT_LOCATION }})
+
+      - name: Building release Web
+        if: ${{ github.event.inputs.job_target == 'web' || github.event.inputs.job_target == 'both' }}
+        run: |
+          mkdir -p ${{ env.EXPORT_FOLDER_WEB }}
+          ./Godot_v${{ env.GODOT_VERSION }}-stable_linux.x86_64 --import ${{ env.GODOT_PROJECT_LOCATION }} --quiet --headless --export-release Web ${{ env.MAIN_FOLDER }}/${{ env.EXPORT_FOLDER_WEB }}/index.html
+
+
+      - name: Zip Web export (flattened)
+        uses: montudor/action-zip@v1
+        with:
+          args: zip -qq -r ${{ env.APPLICATION_NAME }}_web_release_${{ env.DATE }}.zip . -i "${{ env.EXPORT_FOLDER_WEB }}/*"
+
+      - name: Uploading Web artifact release
+        if: ${{ github.event.inputs.job_target == 'web' || github.event.inputs.job_target == 'both' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.APPLICATION_NAME }}_web_release_${{ env.DATE }}.zip
+          path: ${{ env.APPLICATION_NAME }}_web_release_${{ env.DATE }}.zip
+
+      - name: Upload to GitHub Release (Web)
+        if: ${{ github.event.inputs.job_target == 'web' || github.event.inputs.job_target == 'both' }}
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: release-${{ env.DATE }}
+          name: Release ${{ env.DATE }}
+          files: ${{ env.APPLICATION_NAME }}_web_release_${{ env.DATE }}.zip
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

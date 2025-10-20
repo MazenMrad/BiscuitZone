@@ -1,0 +1,52 @@
+[gd_scene load_steps=7 format=3 uid="uid://c5cq55vd5wgvv"]
+
+[ext_resource type="Script" uid="uid://06vn8h5rmwtq" path="res://scenes/structures/jumppad.gd" id="1_q4qon"]
+[ext_resource type="Shader" uid="uid://dxmwgf6rbiywn" path="res://shaders/jumppad.gdshader" id="2_j82dj"]
+[ext_resource type="Texture2D" uid="uid://du46478qoy2ef" path="res://assets/map/props/jump pad.png" id="2_q4qon"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_le2nx"]
+size = Vector2(14, 6)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_le2nx"]
+shader = ExtResource("2_j82dj")
+shader_parameter/glow_color = Color(0.583847, 0.868572, 0.993617, 1)
+shader_parameter/intensity = 1.822
+shader_parameter/spread = 1.204
+shader_parameter/pulse_speed = 4.365
+
+[sub_resource type="Curve" id="Curve_pf1p4"]
+_data = [Vector2(0, 0.178082), 0.0, 0.0, 0, 0, Vector2(0.916216, 0.0821918), 0.0, 0.0, 0, 0, Vector2(0.940541, 0.136986), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Jumppad" type="Area2D"]
+collision_layer = 0
+collision_mask = 3
+script = ExtResource("1_q4qon")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
+shape = SubResource("RectangleShape2D_le2nx")
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_le2nx")
+position = Vector2(0, -5)
+amount = 23
+lifetime = 0.18
+randomness = 0.01
+emission_shape = 1
+emission_sphere_radius = 5.23
+gravity = Vector2(0, -980)
+scale_amount_min = 2.0
+scale_amount_max = 5.96
+scale_amount_curve = SubResource("Curve_pf1p4")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(1.42109e-14, -2)
+scale = Vector2(0.615, 0.615)
+texture = ExtResource("2_q4qon")
+region_enabled = true
+region_rect = Rect2(0.362732, 28.7262, 23.1602, 8.51386)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

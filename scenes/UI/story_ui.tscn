@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=3 uid="uid://dgsu052384sjx"]
+
+[ext_resource type="Texture2D" uid="uid://v0l4uq1kb5hl" path="res://assets/map/bg.png" id="1_4j1tw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_er23e"]
+font_size = 10
+font_color = Color(0.0274091, 0.0274092, 0.0274092, 1)
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Sprite2D" type="ColorRect" parent="."]
+z_index = -100
+offset_left = -4044.0
+offset_top = -2217.0
+offset_right = 2530.0
+offset_bottom = 773.0
+color = Color(0.978936, 0.98062, 0.980056, 1)
+
+[node name="Bg" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+position = Vector2(308, 168)
+texture = ExtResource("1_4j1tw")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+offset_left = -2331.0
+offset_top = 115.0
+offset_right = 1514.0
+offset_bottom = 163.0
+text = "Many years a nuclear warfare was the most dangerous threat but as technology developed further new weapons where developed. A biological warfare begun and whole countries where wiped out. Large areas of the planet are now contaminated and what is left of the previously flourishing civilization is forced to live in small safe spaces living from mainly mushrooms, moss and everything that seems somewhat edible. Some things are still usable from before the warfare like canned food and sweets, but they are only for the rich and powerful.  Only  a small group of people go into the contaminated zones. They carry special suites that can protect them from the contamination but only for a certain amount of time.  One of these people is called buisker because he always returns with sweets."
+label_settings = SubResource("LabelSettings_er23e")

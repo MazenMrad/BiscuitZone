@@ -1,0 +1,65 @@
+[gd_scene load_steps=5 format=3 uid="uid://dxlxtcbdsemeb"]
+
+[ext_resource type="Script" path="res://scripts/story.gd" id="1_3acyn"]
+[ext_resource type="PackedScene" uid="uid://bnx6epdna3mjk" path="res://scenes/UI/fade.tscn" id="2_6wofi"]
+[ext_resource type="Texture2D" uid="uid://v0l4uq1kb5hl" path="res://assets/map/bg.png" id="3_as8bs"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_y6sis"]
+font_size = 10
+font_color = Color(0.0274091, 0.0274092, 0.0274092, 1)
+
+[node name="Story" type="Control"]
+z_index = 2
+layout_mode = 3
+anchor_right = 0.657
+anchor_bottom = 1.0
+offset_right = -55.219
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_3acyn")
+
+[node name="Label" type="Label" parent="."]
+texture_filter = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.201
+anchor_top = 0.111
+anchor_right = 0.201
+anchor_bottom = 0.111
+offset_left = 67.017
+offset_top = 19.707
+offset_right = 446.017
+offset_bottom = 203.707
+text = "Many years a nuclear warfare was the most dangerous threat but as technology developed further new weapons where developed. A biological warfare begun and whole countries where wiped out. Large areas of the planet are now contaminated and what is left of the previously flourishing civilization is forced to live in small safe spaces living from mainly mushrooms, moss and everything that seems somewhat edible. Some things are still usable from before the warfare like canned food and sweets but they are only available for the rich and powerful. A  small group of people go into the contaminated zones. They carry special suites that can protect them from the contamination but only for a certain amount of time.  One of these people is called buisker because he always returns with sweets."
+label_settings = SubResource("LabelSettings_y6sis")
+autowrap_mode = 3
+
+[node name="fade" parent="." instance=ExtResource("2_6wofi")]
+layout_mode = 0
+
+[node name="fade_timer" type="Timer" parent="fade"]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+texture_filter = 1
+layout_mode = 0
+offset_left = -2.0
+offset_right = 1137.0
+offset_bottom = 362.0
+mouse_filter = 2
+texture = ExtResource("3_as8bs")
+
+[node name="Start" type="Button" parent="."]
+layout_mode = 0
+offset_left = 297.0
+offset_top = 269.0
+offset_right = 379.0
+offset_bottom = 309.0
+text = "Start"
+
+[connection signal="timeout" from="fade/fade_timer" to="." method="_on_fade_timer_timeout"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+
+[editable path="fade"]

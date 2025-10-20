@@ -1,0 +1,162 @@
+[gd_scene load_steps=13 format=4 uid="uid://b37q2w6h4wjww"]
+
+[ext_resource type="PackedScene" uid="uid://i6mbokppe3fb" path="res://scenes/characters/player/player.tscn" id="1_bc7ec"]
+[ext_resource type="Texture2D" uid="uid://cairqqlwgp71h" path="res://assets/UI/healthbar_under.png" id="2_vfq7s"]
+[ext_resource type="Texture2D" uid="uid://dii5jqg5ntlch" path="res://assets/UI/healthbar_progress.png" id="3_hxy1i"]
+[ext_resource type="Script" uid="uid://bs1i08yrcf5vd" path="res://scripts/healthbar.gd" id="4_jtg8f"]
+[ext_resource type="Texture2D" uid="uid://yd6lwolmgifb" path="res://assets/UI/ammo.png" id="5_70io4"]
+[ext_resource type="Texture2D" uid="uid://0ridolbl8a5u" path="res://assets/UI/assault_rifle.png" id="6_gtpdi"]
+[ext_resource type="PackedScene" uid="uid://d2eqoyhi6srjn" path="res://scenes/structures/next_scene.tscn" id="7_rvyuj"]
+[ext_resource type="PackedScene" uid="uid://dx28v46tguujl" path="res://scenes/structures/world_boundary.tscn" id="8_gtmap"]
+[ext_resource type="Texture2D" uid="uid://v0l4uq1kb5hl" path="res://assets/map/bg.png" id="9_wgfa5"]
+[ext_resource type="Texture2D" uid="uid://bc2u8hghy046l" path="res://assets/map/tilemap.png" id="10_go13e"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_1ts3h"]
+texture = ExtResource("10_go13e")
+texture_region_size = Vector2i(32, 32)
+2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -5.00147, 16, -4.98011, 16, 16, -16, 16)
+3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -5.00147, 16, -4.98011, 16, 16, -16, 16)
+3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+6:1/0 = 0
+6:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:1/0 = 0
+7:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+8:1/0 = 0
+8:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 10.8334, -16, 11.7893, 16, -16, 16)
+2:3/0 = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 9.24029, -16, 13.3825, 16, -16, 16)
+5:3/0 = 0
+5:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+6:3/0 = 0
+6:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+7:3/0 = 0
+7:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:4/0 = 0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 9.24029, -16, 13.3825, 16, -16, 16)
+2:5/0 = 0
+2:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+3:5/0 = 0
+3:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 12.4266, -16, 16, 16, -16, 16)
+1:5/0 = 0
+1:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:4/0 = 0
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:3/0 = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:2/0 = 0
+2:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:2/0 = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -5.00147, 16, -4.98011, 16, 16, -16, 16)
+8:3/0 = 0
+8:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+0:0/0 = 0
+0:1/0 = 0
+0:2/0 = 0
+0:3/0 = 0
+0:4/0 = 0
+0:5/0 = 0
+4:1/0 = 0
+4:3/0 = 0
+5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
+
+[sub_resource type="TileSet" id="TileSet_bc7ec"]
+tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 4
+sources/0 = SubResource("TileSetAtlasSource_1ts3h")
+
+[node name="Level_blueprint" type="Node2D"]
+
+[node name="Sprite2D" type="ColorRect" parent="."]
+z_index = -100
+offset_left = -4045.0
+offset_top = -2144.0
+offset_right = 2529.0
+offset_bottom = 846.0
+color = Color(0.978936, 0.98062, 0.980056, 1)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+texture_filter = 1
+scale = Vector2(0.58, 0.58)
+tile_map_data = PackedByteArray("AADm/wgAAAAFAAMAAADn/wgAAAAGAAMAAADo/wgAAAAHAAMAAADp/wgAAAAIAAMAAADq/wgAAAAFAAMAAADr/wgAAAAGAAMAAADs/wgAAAAHAAMAAADt/wgAAAAIAAMAAADu/wgAAAAFAAMAAADv/wgAAAAGAAMAAADw/wgAAAAHAAMAAADx/wgAAAAIAAMAAADy/wgAAAAFAAMAAADz/wgAAAAGAAMAAAD0/wgAAAAHAAMAAAD1/wgAAAAIAAMAAAD2/wgAAAAFAAMAAAD3/wgAAAAGAAMAAAD4/wgAAAAHAAMAAAD5/wgAAAAIAAMAAAD6/wgAAAAFAAMAAAD7/wgAAAAGAAMAAAD8/wgAAAAHAAMAAAD9/wgAAAAIAAMAAAD+/wgAAAAFAAMAAAD//wgAAAAGAAMAAAAAAAgAAAAHAAMAAAABAAgAAAAIAAMAAAACAAgAAAAFAAMAAAADAAgAAAAGAAMAAAAEAAgAAAAHAAMAAAAFAAgAAAAIAAMAAAAGAAgAAAAFAAMAAAAHAAgAAAAGAAMAAAAIAAgAAAAHAAMAAAAJAAgAAAAIAAMAAAAKAAgAAAAFAAMAAAALAAgAAAAGAAMAAAAMAAgAAAAHAAMAAAANAAgAAAAIAAMAAAAOAAgAAAAFAAMAAAAPAAgAAAAGAAMAAAAQAAgAAAAHAAMAAAARAAgAAAAIAAMAAAASAAgAAAAFAAMAAAATAAgAAAAGAAMAAAAUAAgAAAAHAAMAAAAVAAgAAAAIAAMAAAAWAAgAAAAFAAMAAAAXAAgAAAAGAAMAAAAYAAgAAAAHAAMAAAAZAAgAAAAIAAMAAAA=")
+tile_set = SubResource("TileSet_bc7ec")
+
+[node name="Bg" type="Sprite2D" parent="."]
+z_index = -1
+texture_filter = 1
+texture = ExtResource("9_wgfa5")
+
+[node name="Player" parent="." instance=ExtResource("1_bc7ec")]
+position = Vector2(-288, 133)
+collision_mask = 4
+
+[node name="Camera2D" type="Camera2D" parent="Player"]
+
+[node name="healthbar" type="TextureProgressBar" parent="Player" node_paths=PackedStringArray("player")]
+z_index = 2
+texture_filter = 1
+offset_left = -322.0
+offset_top = -154.0
+offset_right = -258.0
+offset_bottom = -26.0
+fill_mode = 3
+texture_under = ExtResource("2_vfq7s")
+texture_progress = ExtResource("3_hxy1i")
+script = ExtResource("4_jtg8f")
+player = NodePath("..")
+
+[node name="ammo" type="TextureRect" parent="Player"]
+z_index = 2
+texture_filter = 1
+offset_left = -297.0
+offset_top = -153.0
+offset_right = -257.0
+offset_bottom = -113.0
+scale = Vector2(0.83, 0.83)
+texture = ExtResource("5_70io4")
+
+[node name="ammo_count" type="Label" parent="Player"]
+z_index = 2
+offset_left = -267.0
+offset_top = -150.0
+offset_right = -227.0
+offset_bottom = -127.0
+text = "5"
+
+[node name="TextureRect" type="TextureRect" parent="Player"]
+z_index = 2
+texture_filter = 1
+offset_left = -298.0
+offset_top = -133.0
+offset_right = -258.0
+offset_bottom = -93.0
+texture = ExtResource("6_gtpdi")
+
+[node name="Enemies" type="Node" parent="."]
+
+[node name="Structures" type="Node" parent="."]
+
+[node name="NextScene" parent="Structures" instance=ExtResource("7_rvyuj")]
+position = Vector2(142, 128)
+
+[node name="WorldBoundary" parent="Structures" instance=ExtResource("8_gtmap")]
+position = Vector2(3, 193)
+collision_layer = 0
+collision_mask = 3
+
+[connection signal="child_entered_tree" from="Player" to="Player" method="_on_child_entered_tree"]

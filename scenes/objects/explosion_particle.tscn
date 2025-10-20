@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://dorysvm7aybv4"]
+
+[ext_resource type="Script" uid="uid://yxcrb5gdjnej" path="res://scenes/objects/explosion_particle.gd" id="1_ngf51"]
+[ext_resource type="AudioStream" uid="uid://cyxqku3kc7y2g" path="res://sounds/explosion1.wav" id="2_30ki3"]
+
+[sub_resource type="Curve" id="Curve_24mks"]
+_data = [Vector2(0.0481651, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Gradient" id="Gradient_30ki3"]
+offsets = PackedFloat32Array(0, 0.42, 1)
+colors = PackedColorArray(0.32549, 1, 0.878431, 1, 0.325404, 0.853422, 0.87871, 1, 0.324903, 0.000604715, 0.880333, 1)
+
+[sub_resource type="Gradient" id="Gradient_y6d1u"]
+offsets = PackedFloat32Array(0, 0.77)
+colors = PackedColorArray(0.0466667, 0.0466667, 0.0466667, 1, 1, 1, 1, 1)
+
+[node name="ExplosionParticle" type="CPUParticles2D"]
+emitting = false
+amount = 20
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+spread = 180.0
+gravity = Vector2(0, 0)
+initial_velocity_min = 100.0
+initial_velocity_max = 150.0
+scale_amount_min = 2.0
+scale_amount_max = 4.0
+scale_amount_curve = SubResource("Curve_24mks")
+color = Color(0.331739, 0.824043, 1, 1)
+color_ramp = SubResource("Gradient_30ki3")
+color_initial_ramp = SubResource("Gradient_y6d1u")
+script = ExtResource("1_ngf51")
+
+[node name="ExplosionSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_30ki3")

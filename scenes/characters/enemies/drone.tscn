@@ -1,0 +1,158 @@
+[gd_scene load_steps=12 format=3 uid="uid://dowdifemr3ed3"]
+
+[ext_resource type="Script" uid="uid://dsg2y4vwcexdg" path="res://scenes/characters/enemies/drone.gd" id="1_jaeak"]
+[ext_resource type="Texture2D" uid="uid://cn5cjiquhwfpv" path="res://assets/drone/drone.png" id="2_6fe8g"]
+[ext_resource type="Texture2D" uid="uid://bt2dgt5loes3e" path="res://assets/bullets/24.png" id="3_gj17l"]
+[ext_resource type="Shader" uid="uid://dxmwgf6rbiywn" path="res://shaders/jumppad.gdshader" id="3_kyp0p"]
+[ext_resource type="AudioStream" uid="uid://c8cqbw1ysfi74" path="res://sounds/laser2.wav" id="5_knefa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jaeak"]
+size = Vector2(26, 7)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6fe8g"]
+radius = 45.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qe8a7"]
+size = Vector2(26, 6)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6fe8g"]
+size = Vector2(116.679, 20)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_knefa"]
+shader = ExtResource("3_kyp0p")
+shader_parameter/glow_color = Color(0.409353, 0.0114461, 0.0828395, 1)
+shader_parameter/intensity = 1.822
+shader_parameter/spread = 0.897
+shader_parameter/pulse_speed = 2.34
+
+[sub_resource type="Curve" id="Curve_t0tum"]
+_data = [Vector2(0, 0.597462), 0.0, 0.0, 0, 0, Vector2(1e-05, 0.914213), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[node name="Drone" type="CharacterBody2D" groups=["drone", "enemy"]]
+collision_layer = 2
+collision_mask = 5
+motion_mode = 1
+script = ExtResource("1_jaeak")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_6fe8g")
+region_enabled = true
+region_rect = Rect2(16.5112, 20.2001, 28.4146, 20.3567)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_jaeak")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+position = Vector2(0, 31)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+position = Vector2(0, 14)
+shape = SubResource("CircleShape2D_6fe8g")
+
+[node name="StandingArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StandingArea"]
+position = Vector2(0, -6)
+shape = SubResource("RectangleShape2D_qe8a7")
+
+[node name="LineOfSight" type="RayCast2D" parent="."]
+target_position = Vector2(465, 0)
+collision_mask = 4
+
+[node name="RayCast2D" type="RayCast2D" parent="LineOfSight"]
+rotation = 0.0872665
+target_position = Vector2(465, 0)
+collision_mask = 5
+
+[node name="RayCast2D2" type="RayCast2D" parent="LineOfSight"]
+rotation = -0.0872665
+target_position = Vector2(465, 0)
+collision_mask = 5
+
+[node name="RayCast2D3" type="RayCast2D" parent="LineOfSight"]
+rotation = 0.174533
+target_position = Vector2(465, 0)
+collision_mask = 5
+
+[node name="RayCast2D4" type="RayCast2D" parent="LineOfSight"]
+rotation = -0.174533
+target_position = Vector2(465, 0)
+collision_mask = 5
+
+[node name="RayCast2D5" type="RayCast2D" parent="LineOfSight"]
+rotation = 0.261799
+target_position = Vector2(465, 0)
+collision_mask = 5
+
+[node name="RayCast2D6" type="RayCast2D" parent="LineOfSight"]
+rotation = -0.261799
+target_position = Vector2(465, 0)
+collision_mask = 5
+
+[node name="Right" type="RayCast2D" parent="."]
+rotation = -1.57634
+target_position = Vector2(0, 10)
+
+[node name="Left" type="RayCast2D" parent="."]
+rotation = 1.57687
+target_position = Vector2(0, 10)
+
+[node name="Down" type="RayCast2D" parent="."]
+target_position = Vector2(0, 58)
+collision_mask = 4
+
+[node name="AllertTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="LaserCooldown" type="Timer" parent="."]
+one_shot = true
+
+[node name="LaserDuration" type="Timer" parent="."]
+one_shot = true
+
+[node name="Laser_Cast" type="RayCast2D" parent="."]
+scale = Vector2(0.956144, 1)
+target_position = Vector2(465, 0)
+collision_mask = 4
+
+[node name="DamageZone" type="Area2D" parent="Laser_Cast"]
+monitoring = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Laser_Cast/DamageZone"]
+visible = false
+position = Vector2(58.7979, -4.65661e-10)
+shape = SubResource("RectangleShape2D_6fe8g")
+
+[node name="Laser" type="Line2D" parent="."]
+texture_filter = 1
+material = SubResource("ShaderMaterial_knefa")
+points = PackedVector2Array(0, 0, 365, 0)
+width = 7.22
+width_curve = SubResource("Curve_t0tum")
+texture = ExtResource("3_gj17l")
+texture_mode = 2
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_knefa")
+
+[node name="AlarmGroupTimer" type="Timer" parent="."]
+
+[node name="AudioAlarm" type="AudioStreamPlayer2D" parent="."]
+volume_db = -20.0
+
+[node name="AudioAllerted" type="AudioStreamPlayer2D" parent="."]
+
+[node name="AudioIdle" type="AudioStreamPlayer2D" parent="."]
+autoplay = true
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_entered" from="StandingArea" to="." method="_on_standing_area_body_entered"]
+[connection signal="body_exited" from="StandingArea" to="." method="_on_standing_area_body_exited"]
+[connection signal="timeout" from="AllertTimer" to="." method="_on_allert_timer_timeout"]
+[connection signal="timeout" from="LaserCooldown" to="." method="_on_laser_cooldown_timeout"]
+[connection signal="timeout" from="LaserDuration" to="." method="_on_laser_duration_timeout"]
+[connection signal="body_entered" from="Laser_Cast/DamageZone" to="." method="_on_damage_zone_body_entered"]

@@ -1,0 +1,93 @@
+[gd_scene load_steps=5 format=3 uid="uid://c7ttd51vl6hy5"]
+
+[ext_resource type="Script" uid="uid://dhx4pwtgk6e21" path="res://scripts/main_menu.gd" id="1_uto37"]
+[ext_resource type="Texture2D" uid="uid://v0l4uq1kb5hl" path="res://assets/map/bg.png" id="2_3aq5a"]
+[ext_resource type="PackedScene" uid="uid://bnx6epdna3mjk" path="res://scenes/UI/fade.tscn" id="2_p8yv4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q1r8t"]
+
+[node name="StartScreen" type="Control"]
+z_index = 2
+layout_mode = 3
+anchor_right = 0.657
+anchor_bottom = 1.0
+offset_right = -55.219
+offset_bottom = 39.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_uto37")
+
+[node name="fade" parent="." instance=ExtResource("2_p8yv4")]
+layout_mode = 0
+
+[node name="fade_timer" type="Timer" parent="fade"]
+
+<<<<<<< Updated upstream
+[node name="Start" type="Button" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 284.0
+offset_top = 205.0
+offset_right = 350.0
+offset_bottom = 252.0
+text = "Start"
+=======
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="CreativeName" type="CenterContainer" parent="CenterContainer/VBoxContainer"]
+z_index = 1
+layout_mode = 2
+>>>>>>> Stashed changes
+
+[node name="quit" type="Button" parent="."]
+layout_mode = 0
+offset_left = 285.0
+offset_top = 257.0
+offset_right = 350.0
+offset_bottom = 311.0
+text = "Quit
+"
+
+[node name="CreativeName" type="CenterContainer" parent="."]
+z_index = 1
+layout_mode = 0
+offset_left = 254.0
+offset_top = 132.0
+offset_right = 383.0
+offset_bottom = 164.0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="CreativeName"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_q1r8t")
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0.423651, 0.423651, 0.423651, 1)
+theme_override_colors/font_outline_color = Color(0.306975, 0.153747, 0.237886, 1)
+theme_override_font_sizes/font_size = 23
+text = "BiscuitZone"
+
+[node name="TextureRect" type="TextureRect" parent="."]
+z_index = -1
+texture_filter = 1
+layout_mode = 0
+offset_left = -2.0
+offset_right = 1137.0
+offset_bottom = 362.0
+mouse_filter = 2
+texture = ExtResource("2_3aq5a")
+
+[connection signal="timeout" from="fade/fade_timer" to="." method="_on_fade_timer_timeout"]
+[connection signal="pressed" from="Start" to="." method="_on_start_pressed"]
+[connection signal="pressed" from="quit" to="." method="_on_quit_pressed"]
+
+[editable path="fade"]

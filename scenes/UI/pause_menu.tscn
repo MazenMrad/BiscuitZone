@@ -1,0 +1,31 @@
+[gd_scene load_steps=3 format=3 uid="uid://cfpxnfmcptui0"]
+
+[ext_resource type="Script" uid="uid://cuql4ctgocq5l" path="res://scenes/UI/pause_menu.gd" id="1_qo2fb"]
+[ext_resource type="PackedScene" uid="uid://c7ttd51vl6hy5" path="res://scenes/UI/start_screen.tscn" id="2_bl585"]
+
+[node name="PauseMenu" type="CanvasLayer"]
+process_mode = 3
+script = ExtResource("1_qo2fb")
+start_screen = ExtResource("2_bl585")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0.591773, 0.541057, 0.519058, 0.262745)
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Menu" type="Button" parent="CenterContainer"]
+layout_mode = 2
+text = "Menu"
+
+[connection signal="pressed" from="CenterContainer/Menu" to="." method="_on_menu_pressed"]

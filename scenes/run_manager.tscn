@@ -1,0 +1,20 @@
+[gd_scene load_steps=3 format=3 uid="uid://544cybwl2doi"]
+
+[ext_resource type="Script" uid="uid://bv83dp4yvfrol" path="res://scenes/run_manager.gd" id="1_0fupr"]
+[ext_resource type="Script" uid="uid://dolbm7y23bw0" path="res://scenes/levels/run_label.gd" id="2_js6kl"]
+
+[node name="RunManager" type="CanvasLayer"]
+script = ExtResource("1_0fupr")
+
+[node name="RunLabel" type="Label" parent="."]
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -57.0
+offset_top = -23.0
+offset_right = -17.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("2_js6kl")

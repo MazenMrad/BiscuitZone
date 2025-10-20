@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=3 uid="uid://dq1ie3q2o62dy"]
+
+[ext_resource type="Script" uid="uid://2cjhafwb47lf" path="res://scenes/characters/enemies/missile.gd" id="1_overe"]
+[ext_resource type="PackedScene" uid="uid://dorysvm7aybv4" path="res://scenes/objects/explosion_particle.tscn" id="2_3gdtb"]
+[ext_resource type="Texture2D" uid="uid://4raqbrqexuom" path="res://assets/bullets/01.png" id="2_w1ly1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_overe"]
+radius = 5.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_w1ly1"]
+radius = 22.0227
+
+[node name="Missile" type="Area2D"]
+collision_mask = 5
+script = ExtResource("1_overe")
+explosion_scene = ExtResource("2_3gdtb")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_overe")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(0.247934, 0.247934)
+texture = ExtResource("2_w1ly1")
+
+[node name="ExplosionArea" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ExplosionArea"]
+rotation = -1.5708
+shape = SubResource("CircleShape2D_w1ly1")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

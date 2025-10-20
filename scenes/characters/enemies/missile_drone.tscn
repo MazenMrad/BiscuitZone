@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://hw7pxabigebv"]
+
+[ext_resource type="Script" uid="uid://bletpk5y57kxm" path="res://scenes/characters/enemies/missile_drone.gd" id="1_g6b0k"]
+[ext_resource type="Texture2D" uid="uid://cn5cjiquhwfpv" path="res://assets/drone/drone.png" id="2_g6b0k"]
+[ext_resource type="PackedScene" uid="uid://dq1ie3q2o62dy" path="res://scenes/characters/enemies/missile.tscn" id="2_jvkb1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jvkb1"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_kaega"]
+radius = 189.003
+
+[node name="MissileDrone" type="CharacterBody2D" groups=["enemy"]]
+texture_filter = 1
+collision_layer = 2
+collision_mask = 4
+script = ExtResource("1_g6b0k")
+missile_scene = ExtResource("2_jvkb1")
+metadata/_custom_type_script = "uid://bcrcfxw8fxxs"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jvkb1")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+modulate = Color(0.991614, 0.335938, 1.92523e-07, 1)
+texture = ExtResource("2_g6b0k")
+
+[node name="PlayerDetector" type="Area2D" parent="."]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerDetector"]
+shape = SubResource("CircleShape2D_kaega")
+
+[node name="PatrolTimer" type="Timer" parent="."]
+wait_time = 2.0
+autostart = true
+
+[node name="Cooldown" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="PatrolTimer" to="." method="_on_patrol_timer_timeout"]
